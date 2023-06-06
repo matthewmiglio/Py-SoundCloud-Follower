@@ -23,7 +23,7 @@ def follow_1_person_from_follower_list_page(logger):
         # if fail read, return to follower list, try again
         if follow_count_of_this_profile == "Fail read":
             logger.log("Failed to read follow count, trying again")
-            return_to_follower_list_from_random_profile()
+            return_to_follower_list_from_random_profile(logger)
             continue
 
         # cast to int

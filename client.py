@@ -26,7 +26,8 @@ from image_to_text import read_image_text
 
 
 def scroll_down():
-    pyautogui.press('pagedown')
+    pyautogui.press("pagedown")
+
 
 def orientate_chrome(logger):
     window_name = (
@@ -74,59 +75,6 @@ def click(x, y, clicks=1, interval=0.0, duration=0.1, button="left"):
 
     # move mouse back to original position
     pyautogui.moveTo(origin[0], origin[1])
-
-
-def send_keys(logger,window_name, text, x_coord=None, y_coord=None):
-    # Get the handle of the currently active window
-    active_window = win32gui.GetForegroundWindow()
-
-    # Find the window based on the window name
-    hwnd = win32gui.FindWindow(None, window_name)
-    if hwnd == 0:
-        logger.log("Window not found.")
-        return
-
-    # Get the window's process ID and thread ID
-    _, process_id = win32process.GetWindowThreadProcessId(hwnd)
-
-    # Open the process with required permissions
-    process_handle = win32api.OpenProcess(
-        win32con.PROCESS_ALL_ACCESS, False, process_id
-    )
-
-    # Set the window as the foreground window
-    win32gui.SetForegroundWindow(hwnd)
-
-    # Click the spot to type into if x and y coordinates are provided
-    if x_coord is not None and y_coord is not None:
-        # Click action
-        click_x = x_coord
-        click_y = y_coord
-        win32api.SetCursorPos((click_x, click_y))
-        win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN, click_x, click_y, 0, 0)
-        win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, click_x, click_y, 0, 0)
-        time.sleep(0.1)
-
-    # Send each keystroke to the window
-    for character in text:
-        virtual_key = win32api.VkKeyScan(character)
-        scan_code = win32api.MapVirtualKey(virtual_key, 0)
-        win32api.keybd_event(virtual_key, scan_code, win32con.KEYEVENTF_EXTENDEDKEY, 0)
-        win32api.keybd_event(
-            virtual_key,
-            scan_code,
-            win32con.KEYEVENTF_EXTENDEDKEY | win32con.KEYEVENTF_KEYUP,
-            0,
-        )
-
-    # Delay to allow the target window to process the input
-    time.sleep(0.1)
-
-    # Restore focus to the previously active window
-    win32gui.SetForegroundWindow(active_window)
-
-    # Close the process handle
-    win32api.CloseHandle(process_handle)
 
 
 def list_window_names(logger):

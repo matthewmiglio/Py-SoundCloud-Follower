@@ -6,10 +6,6 @@ import time
 
 from detection.image_rec import pixel_is_equal
 
-url_search_bar_coords = [193, 67]
-
-rapper_page_followers_button_coords = [844, 577]
-
 
 def wait_for_follower_list_page(logger):
     start_time = time.time()
@@ -56,12 +52,13 @@ def check_if_on_followers_list_page():
     return False
 
 
-def get_to_rapper_page(logger,random_account_to_examine):
+def get_to_rapper_page(logger, random_account_to_examine):
     # should start on 'Discover the top streamed music and songs online on Soundcloud - Google Chrome'
     logger.log("getting to rapper page")
 
     # click url search bar
     logger.log("Clicking search box")
+    url_search_bar_coords = [193, 67]
     click(
         x=url_search_bar_coords[0],
         y=url_search_bar_coords[1],
@@ -79,7 +76,8 @@ def get_to_rapper_page(logger,random_account_to_examine):
 
     # wait for page to load
     ("Waiting 4s for page load")
-    if wait_for_a_profile_page(logger)=='restart':return 'restart'
+    if wait_for_a_profile_page(logger) == "restart":
+        return "restart"
 
     logger.log("Made it to rapper page")
 
@@ -89,11 +87,13 @@ def get_to_follower_list_of_this_profile(logger):
 
     logger.log("Clicking the rapper's follower list button")
 
+    rapper_page_followers_button_coords = [844, 577]
     click(
         x=rapper_page_followers_button_coords[0],
         y=rapper_page_followers_button_coords[1],
     )
-    if wait_for_follower_list_page(logger)=='restart':return 'restart'
+    if wait_for_follower_list_page(logger) == "restart":
+        return "restart"
 
 
 def wait_for_a_profile_page(logger):

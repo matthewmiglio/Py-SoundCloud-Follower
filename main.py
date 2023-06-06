@@ -3,12 +3,10 @@ import random
 from client import orientate_chrome, scroll_down
 from follow_randoms import (
     follow_1_person_from_follower_list_page,
-    get_to_random_profile_on_this_followers_list_page,
 )
-from launcher import close_chrome_windows, launch_soundcloud
+from launcher import launch_soundcloud
 from logger import Logger
 from navigation import (
-    check_if_on_followers_list_page,
     get_to_follower_list_of_this_profile,
     get_to_rapper_page,
 )
