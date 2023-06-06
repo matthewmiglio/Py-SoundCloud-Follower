@@ -177,10 +177,6 @@ def main():
     while 1:
         if main_loop(logger) == "restart":
             logger.log("Restarting...")
-
-            # close chrome
-            # close_chrome_windows()
-
             # launch soundcloud on chrome
             launch_soundcloud()
 
