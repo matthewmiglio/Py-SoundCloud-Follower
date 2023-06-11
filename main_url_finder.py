@@ -1,7 +1,7 @@
 import time
 from chrome_driver import make_chrome_driver
 from file_handler import get_good_links_line_count, get_soundcloud_links_line_count
-from url_checker import soundcloud_url_checker_main_loop
+from url_checker import check_one_unchecked_link
 from raw_link_finder import soundcloud_url_finder_main_loop
 
 SOUNDCLOUD_LINKS_UPPER_LIMIT = 1000
@@ -39,13 +39,15 @@ def get_good_links_state(driver):
     while line_count > 5:
         loop_start_time = time.time()
 
-        if soundcloud_url_checker_main_loop(driver=driver) == "fail":
+        check_return = check_one_unchecked_link(driver=driver)
+
+        if check_return != "success":
             print(
-                f"Failed  in {str(time.time() - loop_start_time)[:5]} seconds. [{get_good_links_line_count()} good accounts...] "
+                f"Failed  in {str(time.time() - loop_start_time)[:5]} seconds. [{get_good_links_line_count()} good accounts] Reason: ({check_return})"
             )
         else:
             print(
-                f"Success in {str(time.time() - loop_start_time)[:5]} seconds. [{get_good_links_line_count()} good accounts...] "
+                f"Success in {str(time.time() - loop_start_time)[:5]} seconds. [{get_good_links_line_count()} good accounts] "
             )
 
         # line count = get_soundcloud_links_line_count()
@@ -66,5 +68,3 @@ def url_finding_main():
     driver = make_chrome_driver()
     while 1:
         state = state_tree(driver, state)
-
-

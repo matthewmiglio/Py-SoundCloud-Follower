@@ -39,8 +39,6 @@ def find_names(driver):
         except:
             pass
 
-    # print(f'Found {len(name_list)} raw names')
-
     return parse_name_list(name_list)
 
 
@@ -136,9 +134,8 @@ def check_for_old_upload_text(driver):
     try:
         element = driver.find_element(By.XPATH, path)
         text = element.text
-        print(text)
-        if "year ago" in text:
-            return True
+        if "year ago" in text or "years ago" in text:
+            return text
         if (
             "6 months ago" in text
             or "7 months ago" in text
@@ -147,7 +144,7 @@ def check_for_old_upload_text(driver):
             or "10 months ago" in text
             or "11 months ago" in text
         ):
-            return True
+            return text
 
     except:
         return False

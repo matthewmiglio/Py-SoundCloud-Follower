@@ -1,3 +1,4 @@
+from chrome_driver import make_chrome_driver
 from chrome_interaction import (
     check_for_nothing_to_hear_here_on_profile_page,
     check_for_old_upload_text,
@@ -27,7 +28,7 @@ def parse_follower_count(count):
     return count
 
 
-def soundcloud_url_checker_main_loop(driver):
+def check_one_unchecked_link(driver):
     # get 1 link from the file
     link = remove_and_return_oldest_links_line()
 
@@ -37,34 +38,48 @@ def soundcloud_url_checker_main_loop(driver):
     # Wait for the webpage to load
     wait = WebDriverWait(driver, 10)  # Maximum wait time of 10 seconds
     wait.until(EC.presence_of_element_located((By.TAG_NAME, "body")))
+    time.sleep(2)
 
     # if 'nothing to hear here' is on the page, return
     if check_for_nothing_to_hear_here_on_profile_page(driver):
-        return "fail"
+        return "No recent uploads"
 
     # if most recent repub/post is older than 6mo, return 'fail
-    if check_for_old_upload_text(driver) == True:
-        return "fail"
+    old_upload_text_return = check_for_old_upload_text(driver)
+    if old_upload_text_return:
+        return f"No recent uploads {old_upload_text_return}"
 
     # read this follower count
     count = read_follower_count_of_this_profile(driver)
 
     if count == "fail":
-        return "fail"
+        return "Follower count read fail"
     count = parse_follower_count(count)
     count = int(count)
 
     # if follower count is too high return
     if count > FOLLOWER_UPPER_LIMIT:
-        return "fail"
+        return "Follower count too high"
 
-    # if follower count is too high return
+    # if follower count is too low return
     if count < FOLLOWER_LOWER_LIMIT:
-        return "fail"
+        return "Follower count too low"
 
     # write the link to the good links file
     append_method_return = add_to_good_links(link)
     if append_method_return == "Error writing to file":
-        return "fail"
+        return "Write fail"
 
     return "success"
+
+
+# driver = make_chrome_driver()
+# driver.get("https://soundcloud.com/Connor-p")
+
+# while 1:
+#     print(check_for_old_upload_text(driver))
+#     pass
+
+
+# https://soundcloud.com/Connor-p (uploaded 3 years ago), failed to read that
+# https://soundcloud.com/Kavon-Edwards (uploaded 6 years ago), failed to read that

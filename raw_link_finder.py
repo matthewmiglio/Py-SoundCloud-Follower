@@ -165,7 +165,6 @@ def soundcloud_url_finder_main_loop(driver):
     # load page
     loading_start_time = time.time()
     time_waiting = 0
-    # print(f"Waiting {WEBPAGE_LOAD_TIME} seconds for page to load")
     while time_waiting < WEBPAGE_LOAD_TIME:
         scroll_to_bottom(driver)
         time_waiting = time.time() - loading_start_time
