@@ -1,4 +1,3 @@
-from chrome_driver import make_chrome_driver
 from chrome_interaction import (
     check_for_nothing_to_hear_here_on_profile_page,
     check_for_old_upload_text,
@@ -69,11 +68,3 @@ def soundcloud_url_checker_main_loop(driver):
         return "fail"
 
     return "success"
-
-
-driver = make_chrome_driver()
-driver.get("https://soundcloud.com/bo-johnson-900333614")
-
-while 1:
-    print(check_for_old_upload_text(driver))
-    pass
