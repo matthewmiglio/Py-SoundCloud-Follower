@@ -161,9 +161,6 @@ def soundcloud_url_finder_main_loop(driver):
     # Wait for the webpage to load
     wait = WebDriverWait(driver, 10)  # Maximum wait time of 10 seconds
     wait.until(EC.presence_of_element_located((By.TAG_NAME, "body")))
-    # print(
-    #     f"Took {str(time.time()  - webpage_loading_start_time)[:5]} seconds to load the webpage"
-    # )
 
     # load page
     loading_start_time = time.time()
@@ -174,17 +171,13 @@ def soundcloud_url_finder_main_loop(driver):
         time_waiting = time.time() - loading_start_time
 
     # read names
-    # print("Finding names")
     names = find_names(driver)
-    # print(f"Found {len(names)} names")
 
     # convert names to soundcloud link
     links = convert_names_to_soundcloud_link(names)
-    # print(f"Got {len(links)} links")
 
     # write names to file
     writes = write_links_to_file(links)
-    # print(f'Wrote {writes} to file "links.txt"')
 
     return writes
 

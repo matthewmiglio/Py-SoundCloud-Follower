@@ -1,7 +1,7 @@
 import time
 from chrome_driver import make_chrome_driver
 from file_handler import get_good_links_line_count, get_soundcloud_links_line_count
-from follower_count_checker import soundcloud_url_checker_main_loop
+from url_checker import soundcloud_url_checker_main_loop
 from raw_link_finder import soundcloud_url_finder_main_loop
 
 SOUNDCLOUD_LINKS_UPPER_LIMIT = 1000

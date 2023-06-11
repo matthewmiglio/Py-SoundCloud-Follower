@@ -3,6 +3,17 @@ import time
 from selenium.webdriver.common.by import By
 
 
+def check_for_nothing_to_hear_here_on_profile_page(driver):
+    try:
+        path = "/html/body/div[1]/div[2]/div[2]/div/div[4]/div[1]/div/div[2]/div/div/h3"
+        element = driver.find_element(By.XPATH, path)
+        text = element.text
+        if "Nothing to hear here" in text:
+            return True
+    except:
+        return False
+
+
 def scroll_to_bottom(driver):
     """method to scroll to the bottom of the page as far as it has loaded
 
@@ -36,59 +47,59 @@ def find_names(driver):
 def parse_name_list(strings):
     blacklist = [
         "🏽",
-        "🥷" ,
+        "🥷",
         "🔥",
-        '₉',
-        '⁹',
-        '☢️',
-        '₉',
-        '⁹',
-        '₉',
-        '💯',
-        '⚡',
-        '🧛🏾🏾',
-        '🧛',
-        '💕',
-        '😦',
-        '蚊',
-        '💔',
-        'ự',
-        'ỡ',
-        'ن',
-        '✨',
-        'ё',
-        '.',
-        '_',
-        'й',
-        '$',
-        '<',
-        'ℳ',
-        'ℛ',
-        'ا',
-        'هي',
-        '🥴',
-        'يم',
-        'з',
-        'Л',
-        'ê',
-        'ô',
-        '&',
-        '!',
-        '@',
-        '#',
-        '$',
-        '%',
-        '^',
-        '&',
-        '*',
-        '(',
-        ')',
-        '-',
-        '=',
-        'Ž',
-        'é',
-        '[',
-        ']',
+        "₉",
+        "⁹",
+        "☢️",
+        "₉",
+        "⁹",
+        "₉",
+        "💯",
+        "⚡",
+        "🧛🏾🏾",
+        "🧛",
+        "💕",
+        "😦",
+        "蚊",
+        "💔",
+        "ự",
+        "ỡ",
+        "ن",
+        "✨",
+        "ё",
+        ".",
+        "_",
+        "й",
+        "$",
+        "<",
+        "ℳ",
+        "ℛ",
+        "ا",
+        "هي",
+        "🥴",
+        "يم",
+        "з",
+        "Л",
+        "ê",
+        "ô",
+        "&",
+        "!",
+        "@",
+        "#",
+        "$",
+        "%",
+        "^",
+        "&",
+        "*",
+        "(",
+        ")",
+        "-",
+        "=",
+        "Ž",
+        "é",
+        "[",
+        "]",
     ]
 
     good_strings = []
@@ -109,11 +120,34 @@ def read_follower_count_of_this_profile(driver):
     start_time = time.time()
     while 1:
         time_taken = time.time() - start_time
-        if time_taken>READ_FOLLOWER_COUNT_TIMEOUT:return 'fail'
+        if time_taken > READ_FOLLOWER_COUNT_TIMEOUT:
+            return "fail"
 
         try:
-            path = '/html/body/div[1]/div[2]/div[2]/div/div[4]/div[2]/div/article[1]/table/tbody/tr/td[1]/a/div'
+            path = "/html/body/div[1]/div[2]/div[2]/div/div[4]/div[2]/div/article[1]/table/tbody/tr/td[1]/a/div"
             element = driver.find_element(By.XPATH, path)
             return element.text
         except:
             pass
+
+
+def check_for_old_upload_text(driver):
+    path = "/html/body/div[1]/div[2]/div[2]/div/div[4]/div[1]/div/div[2]/div/div[2]/ul/li[1]/div/div/div/div[2]/div[1]/div/div/div[3]/div[1]/time/span[2]"
+    try:
+        element = driver.find_element(By.XPATH, path)
+        text = element.text
+        print(text)
+        if "year ago" in text:
+            return True
+        if (
+            "6 months ago" in text
+            or "7 months ago" in text
+            or "8 months ago" in text
+            or "9 months ago" in text
+            or "10 months ago" in text
+            or "11 months ago" in text
+        ):
+            return True
+
+    except:
+        return False
