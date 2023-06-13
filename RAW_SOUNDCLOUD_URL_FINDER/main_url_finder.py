@@ -1,6 +1,8 @@
 import time
+import random
 from RAW_SOUNDCLOUD_URL_FINDER.raw_link_finder import soundcloud_url_finder_main_loop
 from RAW_URL_CHECKER.url_checker import check_one_unchecked_link
+from USER_DATA_READER.read_user_data import record_user_data
 from UTILS.chrome_driver import make_chrome_driver
 from UTILS.file_handler import (
     get_good_links_line_count,
@@ -9,11 +11,15 @@ from UTILS.file_handler import (
 
 
 def state_tree(driver, state):
+    # oen tenth of the state loops, record user data
+    if random.randint(0, 10) == 1:
+        record_user_data()
+
     if state == "get_soundcloud_urls":
         state = get_soundcloud_urls_state(driver)
 
     elif state == "get_good_links":
-        state = get_good_links_state(driver)
+        state = check_raw_links_state(driver)
 
     return state
 
@@ -34,7 +40,7 @@ def get_soundcloud_urls_state(driver, soundcloud_raw_links_upper_limit):
     return "get_good_links"
 
 
-def get_good_links_state(driver):
+def check_raw_links_state(driver):
     # while line count of raw links is above 5
     line_count = get_soundcloud_links_line_count()
     while line_count > 5:

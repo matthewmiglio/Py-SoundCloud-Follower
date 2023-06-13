@@ -1,5 +1,6 @@
 import time
 import numpy
+from USER_DATA_READER.read_user_data import record_user_data
 
 from UTILS.chrome_launcher import (
     close_chrome_windows,
@@ -20,11 +21,14 @@ def follow_main(follow_count):
     # track follows as we loop
     follows = 0
 
+    # record user data before starting follow loop
+    record_user_data()
+
     while 1:
         start_time = time.time()
 
-        if follows >= follow_count:
-            return
+        if follows == follow_count:
+            break
 
         if follows % 7 == 0 and follows != 0:
             # restart chrome
@@ -43,7 +47,7 @@ def follow_main(follow_count):
         # if already following, break
         if check_if_following_user():
             print(
-                f"Failure    follow #{follows} in {str(time.time() - start_time)[:5]} seconds"
+                f"Failure    following #{follows} in {str(time.time() - start_time)[:5]} seconds"
             )
             continue
 
@@ -52,8 +56,11 @@ def follow_main(follow_count):
         follows += 1
 
         print(
-            f"Successful follow #{follows} in {str(time.time() - start_time)[:5]} seconds"
+            f"Successful following #{follows} in {str(time.time() - start_time)[:5]} seconds"
         )
+
+    # record user data after finishing follow loop
+    record_user_data()
 
 
 def click_follow_on_this_profile_page():

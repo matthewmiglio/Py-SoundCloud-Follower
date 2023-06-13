@@ -112,13 +112,30 @@ def parse_name_list(strings):
     return good_strings
 
 
-def read_follower_count_of_this_profile(driver):
-    READ_FOLLOWER_COUNT_TIMEOUT = 5
+def read_following_count_of_this_profile(driver):
+    TIMEOUT = 5
 
     start_time = time.time()
     while 1:
         time_taken = time.time() - start_time
-        if time_taken > READ_FOLLOWER_COUNT_TIMEOUT:
+        if time_taken > TIMEOUT:
+            return "fail"
+
+        try:
+            path = "/html/body/div[1]/div[2]/div[2]/div/div[4]/div[2]/div/article[1]/table/tbody/tr/td[2]/a/div"
+            element = driver.find_element(By.XPATH, path)
+            return element.text
+        except:
+            pass
+
+
+def read_follower_count_of_this_profile(driver):
+    TIMEOUT = 5
+
+    start_time = time.time()
+    while 1:
+        time_taken = time.time() - start_time
+        if time_taken > TIMEOUT:
             return "fail"
 
         try:

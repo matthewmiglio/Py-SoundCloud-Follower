@@ -130,6 +130,44 @@ def remove_duplicate_lines_from_good_links():
     return num_duplicates_deleted
 
 
+def create_user_data_file():
+    file_path = os.path.join(
+        os.getenv("APPDATA"), "py-soundcloud-follower", "user_data.txt"
+    )
+    open(file_path, "w").close()
+
+
+def user_data_file_exists():
+    file_path = os.path.join(
+        os.getenv("APPDATA"), "py-soundcloud-follower", "user_data.txt"
+    )
+    return os.path.exists(file_path)
+
+
+def read_user_data_file():
+    file_path = os.path.join(
+        os.getenv("APPDATA"), "py-soundcloud-follower", "user_data.txt"
+    )
+    with open(file_path, "r") as file:
+        lines = file.readlines()
+    return lines
+
+
+def append_to_user_data_file(line):
+    file_path = os.path.join(
+        os.getenv("APPDATA"), "py-soundcloud-follower", "user_data.txt"
+    )
+    with open(file_path, "a") as file:
+        file.write(line + "\n")
+
+
+print(
+    f"-----------------------------------------------\n-----------------------------------------------\nFile system setup:"
+)
+
+if not user_data_file_exists():
+    create_user_data_file()
+
 if not good_links_file_exists():
     create_good_links_file()
 
@@ -141,4 +179,7 @@ if not links_text_file_exists():
 
 print(
     f"Removed {remove_duplicate_lines_from_good_links()} duplicate lines from good links file"
+)
+print(
+    f"File system setup complete\n-----------------------------------------------\n-----------------------------------------------"
 )

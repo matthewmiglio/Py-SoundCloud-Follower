@@ -1,5 +1,6 @@
 import PySimpleGUI as sg
 from RAW_SOUNDCLOUD_URL_FINDER.main_url_finder import url_finding_main
+from USER_DATA_READER.read_user_data import record_user_data
 from USER_FOLLOWER.main_follower import follow_main
 
 from UTILS.file_handler import (
@@ -49,22 +50,33 @@ layout = [
 ]
 
 
-# Create the window
-window = sg.Window("Soundcloud Follower", layout)
+def gui():
+    # Create the window
+    window = sg.Window("Soundcloud Follower", layout)
 
-# Event loop
-while True:
-    event, values = window.read()
-    if event == sg.WINDOW_CLOSED:
-        break
+    # Event loop
+    while True:
+        event, values = window.read()
+        if event == sg.WINDOW_CLOSED:
+            break
 
-    elif event == "Get More Links":
-        url_finding_main(SOUNDCLOUD_RAW_LINKS_UPPER_LIMIT)
+        elif event == "Get More Links":
+            url_finding_main(SOUNDCLOUD_RAW_LINKS_UPPER_LIMIT)
 
-    elif event == "Follow Users":
-        follow_count = values["-SLIDER-"]
-        follow_main(follow_count)
+        elif event == "Follow Users":
+            follow_count = values["-SLIDER-"]
+            follow_main(follow_count)
+
+    # Close the window
+    window.close()
 
 
-# Close the window
-window.close()
+def dummy_main():
+    record_user_data()
+
+    
+
+
+if __name__ == "__main__":
+    # gui()
+    dummy_main()
