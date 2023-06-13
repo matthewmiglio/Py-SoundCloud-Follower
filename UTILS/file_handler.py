@@ -252,4 +252,3 @@ def file_setup():
     )
 
 
-file_setup()

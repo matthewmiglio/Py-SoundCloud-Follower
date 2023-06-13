@@ -11,6 +11,8 @@ from UTILS.file_handler import append_to_user_data_file
 
 
 def record_user_data():
+    start_time = time.time()
+
     # make a driver
     driver = make_chrome_driver()
 
@@ -37,6 +39,8 @@ def record_user_data():
 
     print("Done recording data...")
     print(f'Recorded this line: "{data_line}"')
+
+    print(f"Recorded user data in {str(time.time() - start_time)[:5]} seconds")
 
 
 def get_current_time():

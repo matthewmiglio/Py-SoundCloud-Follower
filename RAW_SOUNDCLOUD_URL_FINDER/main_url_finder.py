@@ -10,9 +10,9 @@ from UTILS.file_handler import (
 )
 
 
-def state_tree(driver, state):
+def url_finder_state_tree(driver, state,soundcloud_raw_links_upper_limit):
     if state == "get_soundcloud_urls":
-        state = get_soundcloud_urls_state(driver)
+        state = get_soundcloud_urls_state(driver,soundcloud_raw_links_upper_limit,)
 
     elif state == "get_good_links":
         state = check_raw_links_state(driver)
@@ -41,7 +41,7 @@ def check_raw_links_state(driver):
     line_count = get_soundcloud_links_line_count()
     while line_count > 5:
         # record_user_data() sometimes
-        if random.randint(0, 4) == 1:
+        if random.randint(0, 10) == 1:
             record_user_data()
 
         loop_start_time = time.time()
@@ -74,4 +74,4 @@ def url_finding_main(soundcloud_raw_links_upper_limit):
     # make driver, start loop
     driver = make_chrome_driver()
     while 1:
-        state = state_tree(driver, state)
+        state = url_finder_state_tree(driver, state,soundcloud_raw_links_upper_limit)
