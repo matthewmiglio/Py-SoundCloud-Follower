@@ -1,14 +1,10 @@
-from chrome_driver import make_chrome_driver
-from chrome_interaction import (
-    check_for_nothing_to_hear_here_on_profile_page,
-    check_for_old_upload_text,
-    read_follower_count_of_this_profile,
-)
-from file_handler import add_to_good_links, remove_and_return_oldest_links_line
 from selenium.webdriver.support.ui import WebDriverWait
 import time
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
+from UTILS.chrome_interaction import check_for_nothing_to_hear_here_on_profile_page, check_for_old_upload_text, read_follower_count_of_this_profile
+
+from UTILS.file_handler import add_to_good_links, remove_and_return_oldest_links_line
 
 
 FOLLOWER_UPPER_LIMIT = 400

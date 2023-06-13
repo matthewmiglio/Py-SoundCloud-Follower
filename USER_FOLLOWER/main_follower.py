@@ -1,9 +1,14 @@
 import time
 import numpy
-from chrome_launcher import close_chrome_windows, open_chrome_webpage, orientate_chrome
-from clicking import click
-from file_handler import return_and_delete_last_line_in_good_urls
-from image_rec import pixel_is_equal, screenshot
+
+from UTILS.chrome_launcher import (
+    close_chrome_windows,
+    open_chrome_webpage,
+    orientate_chrome,
+)
+from UTILS.clicking import click
+from UTILS.file_handler import return_and_delete_last_line_in_good_urls
+from UTILS.image_rec import pixel_is_equal, screenshot
 
 
 def follow_main(follow_count):

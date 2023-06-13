@@ -1,8 +1,15 @@
 import PySimpleGUI as sg
+from RAW_SOUNDCLOUD_URL_FINDER.main_url_finder import url_finding_main
+from USER_FOLLOWER.main_follower import follow_main
 
-from file_handler import get_good_links_line_count, get_soundcloud_links_line_count
-from main_follower import follow_main
-from main_url_finder import url_finding_main
+from UTILS.file_handler import (
+    get_good_links_line_count,
+    get_soundcloud_links_line_count,
+)
+
+
+SOUNDCLOUD_RAW_LINKS_UPPER_LIMIT = 1000
+
 
 good_url_count = get_good_links_line_count()
 raw_url_count = get_soundcloud_links_line_count()
@@ -52,7 +59,7 @@ while True:
         break
 
     elif event == "Get More Links":
-        url_finding_main()
+        url_finding_main(SOUNDCLOUD_RAW_LINKS_UPPER_LIMIT)
 
     elif event == "Follow Users":
         follow_count = values["-SLIDER-"]

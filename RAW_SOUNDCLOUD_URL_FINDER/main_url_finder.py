@@ -1,10 +1,11 @@
 import time
-from chrome_driver import make_chrome_driver
-from file_handler import get_good_links_line_count, get_soundcloud_links_line_count
-from url_checker import check_one_unchecked_link
-from raw_link_finder import soundcloud_url_finder_main_loop
-
-SOUNDCLOUD_LINKS_UPPER_LIMIT = 1000
+from RAW_SOUNDCLOUD_URL_FINDER.raw_link_finder import soundcloud_url_finder_main_loop
+from RAW_URL_CHECKER.url_checker import check_one_unchecked_link
+from UTILS.chrome_driver import make_chrome_driver
+from UTILS.file_handler import (
+    get_good_links_line_count,
+    get_soundcloud_links_line_count,
+)
 
 
 def state_tree(driver, state):
@@ -17,10 +18,10 @@ def state_tree(driver, state):
     return state
 
 
-def get_soundcloud_urls_state(driver):
-    # get links of profiles until the file has SOUNDCLOUD_LINKS_UPPER_LIMIT lines
+def get_soundcloud_urls_state(driver, soundcloud_raw_links_upper_limit):
+    # get links of profiles until the file has soundcloud_raw_links_upper_limit lines
     line_count = get_soundcloud_links_line_count()
-    while line_count < SOUNDCLOUD_LINKS_UPPER_LIMIT:
+    while line_count < soundcloud_raw_links_upper_limit:
         start_time = time.time()
 
         writes = soundcloud_url_finder_main_loop(driver)
@@ -55,11 +56,11 @@ def get_good_links_state(driver):
     return "get_soundcloud_urls"
 
 
-def url_finding_main():
+def url_finding_main(soundcloud_raw_links_upper_limit):
     # figure out which state to run: if there are less than 1000 links, get more links, else check the links
     line_count = get_soundcloud_links_line_count()
     print(f"There are {line_count} unverified links remaining in the file system")
-    if line_count < SOUNDCLOUD_LINKS_UPPER_LIMIT / 2:
+    if line_count < soundcloud_raw_links_upper_limit / 2:
         state = "get_soundcloud_urls"
     else:
         state = "get_good_links"

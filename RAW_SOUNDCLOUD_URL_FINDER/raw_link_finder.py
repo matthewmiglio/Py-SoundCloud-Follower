@@ -2,10 +2,11 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import random
-from chrome_interaction import find_names, scroll_to_bottom
 import time
+from UTILS.chrome_interaction import find_names, scroll_to_bottom
 
-from file_handler import append_to_links_file
+from UTILS.file_handler import append_to_links_file
+
 
 LIKES_LINKS = [
     "https://soundcloud.com/lildurk/war-bout-it/likes",
