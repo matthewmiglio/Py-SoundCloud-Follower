@@ -2,19 +2,27 @@ import PySimpleGUI as sg
 from RAW_SOUNDCLOUD_URL_FINDER.main_url_finder import url_finding_main
 from USER_DATA_READER.read_user_data import record_user_data
 from USER_FOLLOWER.main_follower import follow_main
-
+import os
 from UTILS.file_handler import (
     get_good_links_line_count,
     get_soundcloud_links_line_count,
 )
+from UTILS.plotting.plotter import create_data_graph
 
 
 SOUNDCLOUD_RAW_LINKS_UPPER_LIMIT = 1000
 
 
+# get program data
 good_url_count = get_good_links_line_count()
 raw_url_count = get_soundcloud_links_line_count()
 
+
+# get paths
+appdata_dir = os.getenv("APPDATA")
+
+
+# GUI layout
 layout = [
     [
         sg.Frame(
@@ -47,12 +55,19 @@ layout = [
             element_justification="center",
         )
     ],
+    [
+        sg.Frame(
+            "Graph",
+            [[sg.EmbeddedTCLStub(key="-WEBVIEW-")]],
+            element_justification="center",
+        )
+    ],
 ]
 
 
 def gui():
     # Create the window
-    window = sg.Window("Soundcloud Follower", layout)
+    window = sg.Window("Soundcloud Follower", layout, finalize=True)
 
     # Event loop
     while True:
@@ -67,16 +82,17 @@ def gui():
             follow_count = values["-SLIDER-"]
             follow_main(follow_count)
 
-    # Close the window
+    # Close the window and quit the application
     window.close()
 
 
 def dummy_main():
-    record_user_data()
-
-    
+    # record_user_data()
+    create_data_graph()
 
 
 if __name__ == "__main__":
+    # create_data_graph()
     # gui()
+
     dummy_main()
