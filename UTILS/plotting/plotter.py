@@ -10,6 +10,7 @@ from plotly.subplots import make_subplots
 
 def create_data_graph():
     start_time = time.time()
+    print("Making plot...")
 
     appdata_dir = os.environ.get("APPDATA")
 
@@ -83,6 +84,9 @@ def create_data_graph():
 
     print(
         f"Took {str(time.time() - start_time)[:5]} seconds total to create plot image"
+    )
+    print(
+        "-----------------------------------------------\n-----------------------------------------------"
     )
 
 
