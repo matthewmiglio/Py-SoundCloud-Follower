@@ -2,9 +2,15 @@ from selenium.webdriver.support.ui import WebDriverWait
 import time
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
-from UTILS.chrome_interaction import check_for_nothing_to_hear_here_on_profile_page, check_for_old_upload_text, read_follower_count_of_this_profile
+from UTILS.chrome_interaction import (
+    check_for_nothing_to_hear_here_on_profile_page,
+    check_for_old_upload_text,
+    read_follower_count_of_this_profile,
+)
 
-from UTILS.file_handler import add_to_good_links, remove_and_return_random_raw_link
+from UTILS.file_handler import add_to_good_links
+from UTILS.chrome_driver import make_chrome_driver
+from UTILS.file_handler import remove_and_return_random_raw_link
 
 
 FOLLOWER_UPPER_LIMIT = 400
@@ -24,12 +30,28 @@ def parse_follower_count(count):
     return count
 
 
-def check_one_unchecked_link(driver):
-    # get 1 link from the file
-    link = remove_and_return_random_raw_link()
+def check_one_unchecked_link_wrapper():
+    start_time = time.time()
+    out = check_one_unchecked_link()
+    time_taken = str(time.time() - start_time)[:5]
 
-    # open to that link
-    driver.get(link)
+    if out == "success":
+        print(f"Success in {time_taken} seconds")
+
+    else:
+        print(f"Failure in {time_taken} seconds for reason: {out}")
+
+
+def check_one_unchecked_link():
+    driver = make_chrome_driver()
+
+    # open to 1 link from the file
+    link = remove_and_return_random_raw_link()
+    try:
+        driver.get(link)
+    except:
+        print(f"Failure getting to {link}")
+        return
 
     # Wait for the webpage to load
     wait = WebDriverWait(driver, 10)  # Maximum wait time of 10 seconds
@@ -67,15 +89,3 @@ def check_one_unchecked_link(driver):
         return "Write fail"
 
     return "success"
-
-
-# driver = make_chrome_driver()
-# driver.get("https://soundcloud.com/Connor-p")
-
-# while 1:
-#     print(check_for_old_upload_text(driver))
-#     pass
-
-
-# https://soundcloud.com/Connor-p (uploaded 3 years ago), failed to read that
-# https://soundcloud.com/Kavon-Edwards (uploaded 6 years ago), failed to read that

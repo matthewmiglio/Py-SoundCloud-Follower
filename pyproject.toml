@@ -12,5 +12,8 @@ pysimplegui = "^4.60.5"
 pillow = "^9.5.0"
 numpy = "^1.24.3"
 pywin32 = "^306"
+pyautogui = "^0.9.54"
+pandas = "^2.0.2"
+plotly = "^5.15.0"
 
 

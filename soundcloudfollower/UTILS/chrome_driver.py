@@ -32,7 +32,6 @@ def make_chrome_options():
 
 # method to make a chrome webpage driver object using selenium and chromedriver v1.0.9
 def make_chrome_driver():
-
     chrome_options = make_chrome_options()
 
     return webdriver.Chrome(

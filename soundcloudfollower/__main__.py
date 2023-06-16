@@ -11,6 +11,10 @@ from UTILS.file_handler import (
     get_raw_links_count,
 )
 from UTILS.plotting.plotter import create_data_graph
+from RAW_URL_CHECKER.url_checker import check_one_unchecked_link
+from UTILS.file_handler import remove_and_return_random_raw_link
+from UTILS.file_handler import remove_line_from_file
+from RAW_URL_CHECKER.url_checker import check_one_unchecked_link_wrapper
 
 SOUNDCLOUD_RAW_LINKS_UPPER_LIMIT = 1000
 
@@ -21,7 +25,7 @@ raw_url_count = get_raw_links_count()
 # get image_pat
 appdata_dir = os.environ.get("APPDATA")
 image_path = os.path.join(
-    appdata_dir, "py-soundcloud-follower", "graph_image", "data_image.png" # type: ignore
+    appdata_dir, "py-soundcloud-follower", "graph_image", "data_image.png"  # type: ignore
 )
 
 
@@ -40,6 +44,17 @@ layout = [
                     [
                         sg.Text(
                             f"Raw URL Count: {raw_url_count}", font=("Helvetica", 14)
+                        )
+                    ],
+                    [sg.Text(f"Select Worker Count:", font=("Helvetica", 14))],
+                    [
+                        sg.Slider(
+                            range=(1, 10),
+                            default_value=6,
+                            orientation="h",
+                            size=(30, 20),
+                            key="WORKER_COUNT",
+                            font=("Helvetica", 14),
                         )
                     ],
                     [sg.Button("Get More Links", size=(15, 2), font=("Helvetica", 14))],
@@ -86,12 +101,14 @@ def gui():
 
     # Event loop
     while True:
-        event, values = window.read() # type: ignore
+        event, values = window.read()  # type: ignore
         if event == sg.WINDOW_CLOSED:
             break
 
         elif event == "Get More Links":
-            url_finding_main(SOUNDCLOUD_RAW_LINKS_UPPER_LIMIT)
+            worker_count = int(values["WORKER_COUNT"])
+
+            url_finding_main(SOUNDCLOUD_RAW_LINKS_UPPER_LIMIT, worker_count)
 
         elif event == "Follow Users":
             follow_count = values["-SLIDER-"]
@@ -102,7 +119,6 @@ def gui():
 
 
 def dummy_main():
-    # record_user_data()
     create_data_graph()
 
 
@@ -111,4 +127,11 @@ if __name__ == "__main__":
     create_data_graph()
     gui()
 
-    # dummy_main()
+    # import concurrent.futures
+    # with concurrent.futures.ThreadPoolExecutor(max_workers=8) as executor:
+    #     futures = []
+    #     for _ in range(8):
+    #         futures.append(executor.submit(check_one_unchecked_link_wrapper))
+
+    #     # Wait for all threads to complete
+    #     concurrent.futures.wait(futures)

@@ -14,14 +14,39 @@ def create_data_graph():
 
     appdata_dir = os.environ.get("APPDATA")
 
-    file_path = os.path.join(appdata_dir, "py-soundcloud-follower", "user_data.txt")
-
-    html_path = os.path.join(
-        appdata_dir, "py-soundcloud-follower", "graph_image", "data_image.html"
+    file_path = os.path.join(
+        appdata_dir.encode(),
+        "py-soundcloud-follower".encode(),
+        "user_data.txt".encode(),
     )
 
+    html_path = os.path.join(
+        appdata_dir.encode() if appdata_dir else None,
+        "py-soundcloud-follower".encode(),
+        "graph_image".encode(),
+        "data_image.html".encode(),
+    )
     # create the graph image as html
     html_image_start_time = time.time()
+    # convert the file paths to strings
+    appdata_dir = os.getenv("APPDATA")
+    appdata_dir_str = appdata_dir if appdata_dir else ""
+    file_path_str = file_path.decode() if file_path else ""
+    html_path_str = html_path.decode() if html_path else ""
+
+    # join the file paths using strings instead of bytes
+    file_path = os.path.join(
+        appdata_dir_str,
+        "py-soundcloud-follower",
+        "user_data.txt",
+    )
+
+    html_path = os.path.join(
+        appdata_dir_str,
+        "py-soundcloud-follower",
+        "graph_image",
+        "data_image.html",
+    )
 
     # Read the data file into a pandas DataFrame
     data_read_start_time = time.time()

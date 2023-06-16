@@ -89,20 +89,48 @@ def append_to_raw_links_file(line):
         return "Error writing to file"
 
 
+# import random
+
+
 def remove_and_return_random_raw_link():
-    folder_path = os.path.join(os.getenv("APPDATA"), "py-soundcloud-follower")  # type: ignore
-    file_path = os.path.join(folder_path, "soundcloud-links.txt")
+    file_path = os.path.join(
+        os.getenv("APPDATA"), "py-soundcloud-follower", "soundcloud-links.txt"  # type: ignore
+    )
+
+    link = get_random_raw_link()
+
+    print(f'Need to remove this line: [{link}]')
+    remove_return = remove_line_from_file(file_path, line_to_remove=link)
+
+    print(f'Removed line: {remove_return}')
+
+    return link
+
+
+def get_random_raw_link():
+    file_path = os.path.join(
+        os.getenv("APPDATA"), "py-soundcloud-follower", "soundcloud-links.txt"  # type: ignore
+    )
+
     with open(file_path, "r+") as file:
         lines = file.readlines()
-        random_line = random.choice(lines).strip() if lines else None
-        lines.remove(random_line)
-        file.seek(0)
-        file.truncate()
-        file.writelines(lines)
-    return random_line
+
+        random_line = random.choice(lines)
+
+        return random_line
 
 
-
+def remove_line_from_file(file_path, line_to_remove):
+    with open(file_path, "r+") as file:
+        lines = file.readlines()
+        for line in lines:
+            if line == line_to_remove:
+                lines.remove(line_to_remove)
+                file.seek(0)
+                file.truncate()
+                file.writelines(lines)
+                return True
+        return False
 
 
 def get_raw_links_count():
