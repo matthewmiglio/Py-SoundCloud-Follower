@@ -7,5 +7,10 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.11"
+selenium = "^4.10.0"
+pysimplegui = "^4.60.5"
+pillow = "^9.5.0"
+numpy = "^1.24.3"
+pywin32 = "^306"
 
 
