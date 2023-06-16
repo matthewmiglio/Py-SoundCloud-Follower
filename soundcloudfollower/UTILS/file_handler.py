@@ -4,32 +4,32 @@ import os
 
 
 def create_upper_folder():
-    folder_path = os.path.join(os.getenv("APPDATA"), "py-soundcloud-follower")
+    folder_path = os.path.join(os.getenv("APPDATA"), "py-soundcloud-follower")  # type: ignore
     os.makedirs(folder_path, exist_ok=True)
     print('Created folder "py-soundcloud-follower" in AppData')
 
 
 def create_links_text_file():
-    folder_path = os.path.join(os.getenv("APPDATA"), "py-soundcloud-follower")
+    folder_path = os.path.join(os.getenv("APPDATA"), "py-soundcloud-follower")  # type: ignore
     file_path = os.path.join(folder_path, "soundcloud-links.txt")
     open(file_path, "a").close()
     print('Created file "soundcloud-links.txt" in AppData')
 
 
 def upper_folder_exists():
-    folder_path = os.path.join(os.getenv("APPDATA"), "py-soundcloud-follower")
+    folder_path = os.path.join(os.getenv("APPDATA"), "py-soundcloud-follower")  # type: ignore
     return os.path.exists(folder_path)
 
 
 def links_text_file_exists():
-    folder_path = os.path.join(os.getenv("APPDATA"), "py-soundcloud-follower")
+    folder_path = os.path.join(os.getenv("APPDATA"), "py-soundcloud-follower")  # type: ignore
     file_path = os.path.join(folder_path, "soundcloud-links.txt")
     return os.path.exists(file_path)
 
 
 def append_to_links_file(line):
     try:
-        folder_path = os.path.join(os.getenv("APPDATA"), "py-soundcloud-follower")
+        folder_path = os.path.join(os.getenv("APPDATA"), "py-soundcloud-follower")  # type: ignore
         file_path = os.path.join(folder_path, "soundcloud-links.txt")
 
         with open(file_path, "r") as file:
@@ -46,7 +46,7 @@ def append_to_links_file(line):
 
 
 def remove_and_return_oldest_links_line():
-    folder_path = os.path.join(os.getenv("APPDATA"), "py-soundcloud-follower")
+    folder_path = os.path.join(os.getenv("APPDATA"), "py-soundcloud-follower")  # type: ignore # type: ignore
     file_path = os.path.join(folder_path, "soundcloud-links.txt")
     with open(file_path, "r+") as file:
         lines = file.readlines()
@@ -58,21 +58,21 @@ def remove_and_return_oldest_links_line():
 
 
 def create_good_links_file():
-    folder_path = os.path.join(os.getenv("APPDATA"), "py-soundcloud-follower")
+    folder_path = os.path.join(os.getenv("APPDATA"), "py-soundcloud-follower")  # type: ignore
     file_path = os.path.join(folder_path, "good_links.txt")
     open(file_path, "a").close()
     print('Created file "good_links.txt" in AppData')
 
 
 def good_links_file_exists():
-    folder_path = os.path.join(os.getenv("APPDATA"), "py-soundcloud-follower")
+    folder_path = os.path.join(os.getenv("APPDATA"), "py-soundcloud-follower")  # type: ignore # type: ignore
     file_path = os.path.join(folder_path, "good_links.txt")
     return os.path.exists(file_path)
 
 
 def add_to_good_links(line):
     try:
-        folder_path = os.path.join(os.getenv("APPDATA"), "py-soundcloud-follower")
+        folder_path = os.path.join(os.getenv("APPDATA"), "py-soundcloud-follower")  # type: ignore
         file_path = os.path.join(folder_path, "good_links.txt")
 
         with open(file_path, "a") as file:
@@ -82,7 +82,7 @@ def add_to_good_links(line):
 
 
 def get_good_links_line_count():
-    folder_path = os.path.join(os.getenv("APPDATA"), "py-soundcloud-follower")
+    folder_path = os.path.join(os.getenv("APPDATA"), "py-soundcloud-follower")  # type: ignore
     file_path = os.path.join(folder_path, "good_links.txt")
     with open(file_path, "r") as file:
         lines = file.readlines()
@@ -90,7 +90,7 @@ def get_good_links_line_count():
 
 
 def get_soundcloud_links_line_count():
-    folder_path = os.path.join(os.getenv("APPDATA"), "py-soundcloud-follower")
+    folder_path = os.path.join(os.getenv("APPDATA"), "py-soundcloud-follower")  # type: ignore
     file_path = os.path.join(folder_path, "soundcloud-links.txt")
     with open(file_path, "r") as file:
         lines = file.readlines()
@@ -98,7 +98,7 @@ def get_soundcloud_links_line_count():
 
 
 def return_and_delete_last_line_in_good_urls():
-    folder_path = os.path.join(os.getenv("APPDATA"), "py-soundcloud-follower")
+    folder_path = os.path.join(os.getenv("APPDATA"), "py-soundcloud-follower")  # type: ignore
     file_path = os.path.join(folder_path, "good_links.txt")
 
     with open(file_path, "r+") as file:
@@ -114,7 +114,7 @@ def return_and_delete_last_line_in_good_urls():
 
 
 def remove_duplicate_lines_from_good_links():
-    folder_path = os.path.join(os.getenv("APPDATA"), "py-soundcloud-follower")
+    folder_path = os.path.join(os.getenv("APPDATA"), "py-soundcloud-follower")  # type: ignore
     file_path = os.path.join(folder_path, "good_links.txt")
 
     lines = set()
@@ -137,7 +137,7 @@ def remove_duplicate_lines_from_good_links():
 
 def remove_duplicate_lines_from_raw_soundcloud_links():
     file_path = os.path.join(
-        os.getenv("APPDATA"), "py-soundcloud-follower", "soundcloud-links.txt"
+        os.getenv("APPDATA"), "py-soundcloud-follower", "soundcloud-links.txt"  # type: ignore
     )
 
     lines = set()
@@ -160,7 +160,7 @@ def remove_duplicate_lines_from_raw_soundcloud_links():
 
 def create_user_data_file():
     file_path = os.path.join(
-        os.getenv("APPDATA"), "py-soundcloud-follower", "user_data.txt"
+        os.getenv("APPDATA"), "py-soundcloud-follower", "user_data.txt"  # type: ignore
     )
     open(file_path, "w").close()
     print('Created file "user_data.txt" in AppData')
@@ -168,14 +168,14 @@ def create_user_data_file():
 
 def user_data_file_exists():
     file_path = os.path.join(
-        os.getenv("APPDATA"), "py-soundcloud-follower", "user_data.txt"
+        os.getenv("APPDATA"), "py-soundcloud-follower", "user_data.txt"  # type: ignore
     )
     return os.path.exists(file_path)
 
 
 def read_user_data_file():
     file_path = os.path.join(
-        os.getenv("APPDATA"), "py-soundcloud-follower", "user_data.txt"
+        os.getenv("APPDATA"), "py-soundcloud-follower", "user_data.txt"  # type: ignore
     )
     with open(file_path, "r") as file:
         lines = file.readlines()
@@ -184,7 +184,7 @@ def read_user_data_file():
 
 def append_to_user_data_file(line):
     file_path = os.path.join(
-        os.getenv("APPDATA"), "py-soundcloud-follower", "user_data.txt"
+        os.getenv("APPDATA"), "py-soundcloud-follower", "user_data.txt"  # type: ignore
     )
     with open(file_path, "a") as file:
         file.write(line + "\n")
@@ -192,7 +192,7 @@ def append_to_user_data_file(line):
 
 def create_graph_image_folder():
     folder_path = os.path.join(
-        os.getenv("APPDATA"), "py-soundcloud-follower", "graph_image"
+        os.getenv("APPDATA"), "py-soundcloud-follower", "graph_image"  # type: ignore
     )
     os.makedirs(folder_path, exist_ok=True)
     print('Created folder "graph_image" in AppData')
@@ -200,14 +200,14 @@ def create_graph_image_folder():
 
 def graph_image_folder_exists():
     folder_path = os.path.join(
-        os.getenv("APPDATA"), "py-soundcloud-follower", "graph_image"
+        os.getenv("APPDATA"), "py-soundcloud-follower", "graph_image"  # type: ignore
     )
     return os.path.exists(folder_path)
 
 
 def check_if_graph_image_file_exists():
     path = os.path.join(
-        os.getenv("APPDATA"), "py-soundcloud-follower", "graph_image", "data_plot.png"
+        os.getenv("APPDATA"), "py-soundcloud-follower", "graph_image", "data_plot.png"  # type: ignore
     )
     return os.path.exists(path)
 
@@ -222,9 +222,6 @@ def file_setup():
     print(
         f"-----------------------------------------------\n-----------------------------------------------\nFile system setup:"
     )
-
-    if not check_if_graph_image_file_exists():
-        create_empty_graph__image_file
 
     if not graph_image_folder_exists():
         create_graph_image_folder()
@@ -250,5 +247,3 @@ def file_setup():
     print(
         f"File system setup complete\n-----------------------------------------------\n-----------------------------------------------"
     )
-
-

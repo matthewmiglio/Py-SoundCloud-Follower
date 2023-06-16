@@ -21,7 +21,7 @@ raw_url_count = get_soundcloud_links_line_count()
 # get image_pat
 appdata_dir = os.environ.get("APPDATA")
 image_path = os.path.join(
-    appdata_dir, "py-soundcloud-follower", "graph_image", "data_image.png"
+    appdata_dir, "py-soundcloud-follower", "graph_image", "data_image.png" # type: ignore
 )
 
 
@@ -86,7 +86,7 @@ def gui():
 
     # Event loop
     while True:
-        event, values = window.read()
+        event, values = window.read() # type: ignore
         if event == sg.WINDOW_CLOSED:
             break
 
