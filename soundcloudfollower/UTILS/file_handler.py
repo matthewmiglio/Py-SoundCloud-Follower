@@ -1,3 +1,4 @@
+import random
 from PIL import Image
 
 import os
@@ -88,16 +89,20 @@ def append_to_raw_links_file(line):
         return "Error writing to file"
 
 
-def remove_and_return_oldest_raw_link():
+def remove_and_return_random_raw_link():
     folder_path = os.path.join(os.getenv("APPDATA"), "py-soundcloud-follower")  # type: ignore
     file_path = os.path.join(folder_path, "soundcloud-links.txt")
     with open(file_path, "r+") as file:
         lines = file.readlines()
-        oldest_line = lines.pop(0).strip() if lines else None
+        random_line = random.choice(lines).strip() if lines else None
+        lines.remove(random_line)
         file.seek(0)
         file.truncate()
         file.writelines(lines)
-    return oldest_line
+    return random_line
+
+
+
 
 
 def get_raw_links_count():
