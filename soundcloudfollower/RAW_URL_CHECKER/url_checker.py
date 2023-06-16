@@ -4,7 +4,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from UTILS.chrome_interaction import check_for_nothing_to_hear_here_on_profile_page, check_for_old_upload_text, read_follower_count_of_this_profile
 
-from UTILS.file_handler import add_to_good_links, remove_and_return_oldest_links_line
+from UTILS.file_handler import add_to_good_links, remove_and_return_oldest_raw_link
 
 
 FOLLOWER_UPPER_LIMIT = 400
@@ -26,7 +26,7 @@ def parse_follower_count(count):
 
 def check_one_unchecked_link(driver):
     # get 1 link from the file
-    link = remove_and_return_oldest_links_line()
+    link = remove_and_return_oldest_raw_link()
 
     # open to that link
     driver.get(link)

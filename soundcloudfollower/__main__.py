@@ -7,16 +7,16 @@ from USER_DATA_READER.read_user_data import record_user_data
 from USER_FOLLOWER.main_follower import follow_main
 from UTILS.file_handler import (
     file_setup,
-    get_good_links_line_count,
-    get_soundcloud_links_line_count,
+    get_good_links_count,
+    get_raw_links_count,
 )
 from UTILS.plotting.plotter import create_data_graph
 
 SOUNDCLOUD_RAW_LINKS_UPPER_LIMIT = 1000
 
 # get program data
-good_url_count = get_good_links_line_count()
-raw_url_count = get_soundcloud_links_line_count()
+good_url_count = get_good_links_count()
+raw_url_count = get_raw_links_count()
 
 # get image_pat
 appdata_dir = os.environ.get("APPDATA")

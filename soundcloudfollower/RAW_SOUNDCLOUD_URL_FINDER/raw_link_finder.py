@@ -5,7 +5,7 @@ import random
 import time
 from UTILS.chrome_interaction import find_names, scroll_to_bottom
 
-from UTILS.file_handler import append_to_links_file
+from UTILS.file_handler import append_to_raw_links_file
 
 
 LIKES_LINKS = [
@@ -185,7 +185,7 @@ def soundcloud_url_finder_main_loop(driver):
 def write_links_to_file(links):
     writes = 0
     for link in links:
-        append_method_return = append_to_links_file(link)
+        append_method_return = append_to_raw_links_file(link)
         if (
             append_method_return != "Line already exists in file"
             and append_method_return != "Error writing to file"
