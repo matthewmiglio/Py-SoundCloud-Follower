@@ -99,10 +99,7 @@ def remove_and_return_random_raw_link():
 
     link = get_random_raw_link()
 
-    print(f'Need to remove this line: [{link}]')
     remove_return = remove_line_from_file(file_path, line_to_remove=link)
-
-    print(f'Removed line: {remove_return}')
 
     return link
 
