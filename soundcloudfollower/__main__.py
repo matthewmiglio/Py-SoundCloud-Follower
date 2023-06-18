@@ -3,7 +3,6 @@ import os
 import PySimpleGUI as sg
 
 from RAW_SOUNDCLOUD_URL_FINDER.main_url_finder import url_finding_main
-from USER_DATA_READER.read_user_data import record_user_data
 from USER_FOLLOWER.main_follower import follow_main
 from UTILS.file_handler import (
     file_setup,
@@ -11,10 +10,6 @@ from UTILS.file_handler import (
     get_raw_links_count,
 )
 from UTILS.plotting.plotter import create_data_graph
-from RAW_URL_CHECKER.url_checker import check_one_unchecked_link
-from UTILS.file_handler import remove_and_return_random_raw_link
-from UTILS.file_handler import remove_line_from_file
-from RAW_URL_CHECKER.url_checker import check_one_unchecked_link_wrapper
 
 SOUNDCLOUD_RAW_LINKS_UPPER_LIMIT = 1000
 
