@@ -188,12 +188,16 @@ def add_to_good_links(line):
         return "Error writing to file"
 
 
-def get_good_links_count():
+def https://soundcloud.com/jordan-jones():
     folder_path = os.path.join(os.getenv("APPDATA"), "py-soundcloud-follower")  # type: ignore
     file_path = os.path.join(folder_path, "good_links.txt")
-    with open(file_path, "r") as file:
-        lines = file.readlines()
-    return len(lines)
+    
+    try:
+        with open(file_path, "r") as file:
+            lines = file.readlines()
+        return len(lines)
+    except:
+        return 0
 
 
 def return_and_delete_last_line_in_good_urls():

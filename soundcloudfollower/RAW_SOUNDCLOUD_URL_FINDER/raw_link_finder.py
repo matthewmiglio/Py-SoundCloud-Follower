@@ -10,7 +10,6 @@ from UTILS.file_handler import append_to_raw_links_file
 
 LIKES_LINKS = [
     "https://soundcloud.com/lildurk/war-bout-it/likes",
-    "https://soundcloud.com/jahseh-onfroy/sets/look-at-me-the-album/likes",
     "https://soundcloud.com/destroylonely/how-you-feel-main/likes",
     "https://soundcloud.com/jahseh-onfroy/hearteater/likes",
     "https://soundcloud.com/rojasonthebeat/look-at-me-ft-xxxtentacion/likes",
@@ -38,7 +37,6 @@ LIKES_LINKS = [
     "https://soundcloud.com/asvpxrocky/fukk-sleep-feat-fka-twigs/likes",
     "https://soundcloud.com/asvpxrocky/fashion-killa/likes",
     "https://soundcloud.com/asvpxrocky/a-ap-rocky-d-m-b-1/likes",
-    "https://soundcloud.com/octobersveryown/drake-search-rescue/likes",
     "https://soundcloud.com/octobersveryown/drake-21-savage-rich-flex/likes",
     "https://soundcloud.com/octobersveryown/drake-21-savage-spin-bout-u/likes",
     "https://soundcloud.com/octobersveryown/drake-knife-talk-feat-21/likes",
@@ -150,6 +148,39 @@ LIKES_LINKS = [
     "https://soundcloud.com/lilyeat/rav3-p4rty-feat-kranky-kranky/likes",
     "https://soundcloud.com/lilyeat/sum-2-do/likes",
     "https://soundcloud.com/lilyeat/mean-feen-feat-kranky-kranky/likes",
+    "https://soundcloud.com/hykeemcarter/the-hillbillies/likes",
+    "https://soundcloud.com/lildurk/all-my-life-feat-j-cole/likes",
+    "https://soundcloud.com/nba-youngboy/youngboy-never-broke-907596618/likes",
+    "https://soundcloud.com/eslabonarmado/eslabon-armado-peso-pluma-ella/likes",
+    "https://soundcloud.com/toosii2x/toosii-favorite-song/likes",
+    "https://soundcloud.com/lildurk/pelle-coat/likes",
+    "https://soundcloud.com/gunna/bread-butter/likes",
+    "https://soundcloud.com/youngnudy/peaches-eggplants-feat-21/likes",
+    "https://soundcloud.com/pesopluma/bye/likes",
+    "https://soundcloud.com/travis-scott-radio/sdp-interlude-demo/likes",
+    "https://soundcloud.com/lilmabu/mathematicaldisrespect/likes",
+    "https://soundcloud.com/dcorleo/penthouse-shordy-prod-16teen/likes",
+    "https://soundcloud.com/metroboomin/metro-boomin-coi-leray-self/likes",
+    "https://soundcloud.com/lil-baby-4pf/low-down/likes",
+    "https://soundcloud.com/octobersveryown/drake-search-rescue/likes",
+    "https://soundcloud.com/unotheactivist-sc/is-you-dumb/likes",
+    "https://soundcloud.com/new_genn/ken-carson-lil-yatchy-cant-go/likes",
+    "https://soundcloud.com/adam-wiseman-27249415/playboi-carti-locked-in-prod-adam-wiseman/likes",
+    "https://soundcloud.com/user-177645440/16-29-throw-it-up-feat-lil-uzi/likes",
+    "https://soundcloud.com/camerxxn/ill-never-wear-a-dress-1/likes",
+    "https://soundcloud.com/zonesoundzrecords/playboi-carti-designer-shoes/likes",
+    "https://soundcloud.com/chezr/used-to-ft-yeat-cheromani/likes",
+    "https://soundcloud.com/clumzy-jay/lying-4-fun-second-part-only/likes",
+    "https://soundcloud.com/gunna/fukumean/likes",
+    "https://soundcloud.com/gunna/back-to-the-moon/likes",
+    "https://soundcloud.com/gunna/rodeo-dr/likes",
+    "https://soundcloud.com/gunna/back-at-it/likes",
+    "https://soundcloud.com/gunna/bottom/likes",
+    "https://soundcloud.com/gunna/cah-shit/likes",
+    "https://soundcloud.com/gunna/idk-nomore/likes",
+    "https://soundcloud.com/gunna/paybach/likes",
+    "https://soundcloud.com/gunna/go-crazy/likes",
+    "https://soundcloud.com/gunna/p-angels/likes",
 ]
 WEBPAGE_LOAD_TIME = 10
 
@@ -212,3 +243,48 @@ def convert_name_to_soundcloud_link(name):
 
     # assemble and return link
     return "https://soundcloud.com/" + parsed_name
+
+
+# LIKES_LINKS debug methods
+def check_for_dupes_in_likes_links():
+    seen = set()
+    duplicates = set()
+
+    for link in LIKES_LINKS:
+        if link in seen:
+            duplicates.add(link)
+        else:
+            seen.add(link)
+
+    for duplicate in duplicates:
+        print(duplicate)
+
+
+def check_for_invalid_likes_links():
+    bad_urls = []
+
+    for url in LIKES_LINKS:
+        url_parts = url.split("/")
+
+        if len(url_parts) != 6:
+            bad_urls.append(url)
+            continue
+
+        if url_parts[0] != "https:":
+            bad_urls.append(url)
+            continue
+
+        if "soundcloud.com" not in url_parts[2]:
+            bad_urls.append(url)
+            continue
+
+        if url_parts[5] != "likes":
+            bad_urls.append(url)
+            continue
+
+    print("-------------------------------------------")
+    for bad_url in bad_urls:
+        print(bad_url)
+
+    print(f"There are {len(bad_urls)} invalids")
+    print("-------------------------------------------")

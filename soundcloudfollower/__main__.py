@@ -10,6 +10,15 @@ from UTILS.file_handler import (
     get_raw_links_count,
 )
 from UTILS.plotting.plotter import create_data_graph
+from UTILS.chrome_launcher import open_chrome_webpage
+from UTILS.file_handler import return_and_delete_last_line_in_good_urls
+from RAW_URL_CHECKER.url_checker import check_this_profile
+from UTILS.chrome_driver import make_chrome_driver
+from RAW_URL_CHECKER.url_checker import check_one_unchecked_link
+from RAW_SOUNDCLOUD_URL_FINDER.raw_link_finder import check_for_dupes_in_likes_links
+from RAW_SOUNDCLOUD_URL_FINDER.raw_link_finder import (
+    check_for_invalid_likes_links,
+)
 
 SOUNDCLOUD_RAW_LINKS_UPPER_LIMIT = 1000
 
@@ -113,20 +122,19 @@ def gui():
     window.close()
 
 
-def dummy_main():
-    create_data_graph()
-
-
-if __name__ == "__main__":
+def main():
     file_setup()
     create_data_graph()
     gui()
 
-    # import concurrent.futures
-    # with concurrent.futures.ThreadPoolExecutor(max_workers=8) as executor:
-    #     futures = []
-    #     for _ in range(8):
-    #         futures.append(executor.submit(check_one_unchecked_link_wrapper))
 
-    #     # Wait for all threads to complete
-    #     concurrent.futures.wait(futures)
+def dummy_main():
+    # print(check_one_unchecked_link())
+    # check_for_dupes_in_likes_links()
+    check_for_invalid_likes_links()
+
+
+if __name__ == "__main__":
+    main()
+
+    # dummy_main()
