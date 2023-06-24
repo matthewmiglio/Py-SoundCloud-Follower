@@ -10,12 +10,6 @@ from UTILS.file_handler import (
     get_raw_links_count,
 )
 from UTILS.plotting.plotter import create_data_graph
-from UTILS.chrome_launcher import open_chrome_webpage
-from UTILS.file_handler import return_and_delete_last_line_in_good_urls
-from RAW_URL_CHECKER.url_checker import check_this_profile
-from UTILS.chrome_driver import make_chrome_driver
-from RAW_URL_CHECKER.url_checker import check_one_unchecked_link
-from RAW_SOUNDCLOUD_URL_FINDER.raw_link_finder import check_for_dupes_in_likes_links
 from RAW_SOUNDCLOUD_URL_FINDER.raw_link_finder import (
     check_for_invalid_likes_links,
 )

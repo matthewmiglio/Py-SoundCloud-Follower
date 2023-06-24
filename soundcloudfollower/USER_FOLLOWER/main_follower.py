@@ -14,6 +14,13 @@ import random
 from USER_DATA_READER.read_user_data import record_user_data
 
 
+def restart_chrome():
+    close_chrome_windows()
+    open_chrome_webpage(url="https://soundcloud.com/discover")
+    time.sleep(3)
+    orientate_chrome()
+
+
 def follow_main(follow_count):
     # open chrome
     open_chrome_webpage(url="https://soundcloud.com/discover")
@@ -43,10 +50,7 @@ def follow_main(follow_count):
         # every 7 users, restart chrome
         if follows % chrome_tab_limit == 0 and follows != 0:
             # restart chrome
-            close_chrome_windows()
-            open_chrome_webpage(url="https://soundcloud.com/discover")
-            time.sleep(3)
-            orientate_chrome()
+            restart_chrome()
 
         # get a link
         this_good_url = return_and_delete_last_line_in_good_urls()
@@ -88,9 +92,4 @@ def check_if_following_user():
 
 
 if __name__ == "__main__":
-    # get a link
-    this_good_url = return_and_delete_last_line_in_good_urls()
-
-    # get to link
-    open_chrome_webpage(url=this_good_url)
-    time.sleep(3)
+    pass
