@@ -28,7 +28,7 @@ def follow_main(follow_count):
 
     CHROME_TAB_RESTART_COUNT_RANGE = (10, 16)
 
-    chrome_tab_limit = chrome_tab_limit.randint(
+    chrome_tab_limit = random.randint(
         CHROME_TAB_RESTART_COUNT_RANGE[0], CHROME_TAB_RESTART_COUNT_RANGE[1]
     )
 

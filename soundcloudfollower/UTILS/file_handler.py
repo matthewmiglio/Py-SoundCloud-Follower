@@ -188,10 +188,10 @@ def add_to_good_links(line):
         return "Error writing to file"
 
 
-def https://soundcloud.com/jordan-jones():
+def get_good_links_count():
     folder_path = os.path.join(os.getenv("APPDATA"), "py-soundcloud-follower")  # type: ignore
     file_path = os.path.join(folder_path, "good_links.txt")
-    
+
     try:
         with open(file_path, "r") as file:
             lines = file.readlines()
