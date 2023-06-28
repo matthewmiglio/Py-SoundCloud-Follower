@@ -146,6 +146,18 @@ def read_follower_count_of_this_profile(driver):
             pass
 
 
+def wait_for_this_profile_page_to_load(driver):
+    start_time = time.time()
+
+    while not check_for_old_upload_text(driver):
+        time_taken = time.time() - start_time
+        if time_taken > 10:
+            return "fail"
+
+    time.sleep(1)
+    print(f"Waited {str(time.time() - start_time)[:5]}s for this profile page")
+
+
 def check_for_old_upload_text(driver):
     path = "/html/body/div[1]/div[2]/div[2]/div/div[4]/div[1]/div/div[2]/div/div[2]/ul/li[1]/div/div/div/div[2]/div[1]/div/div/div[3]/div[1]/time/span[2]"
     try:

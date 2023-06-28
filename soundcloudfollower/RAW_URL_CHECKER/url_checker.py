@@ -11,6 +11,7 @@ from UTILS.chrome_interaction import (
 from UTILS.file_handler import add_to_good_links
 from UTILS.chrome_driver import make_chrome_driver
 from UTILS.file_handler import remove_and_return_random_raw_link
+from UTILS.chrome_interaction import wait_for_this_profile_page_to_load
 
 
 FOLLOWER_UPPER_LIMIT = 400
@@ -47,6 +48,8 @@ def check_one_unchecked_link():
 
 
 def check_this_profile(driver):
+    wait_for_this_profile_page_to_load(driver)
+    
     # if 'nothing to hear here' is on the page, return
     if check_for_nothing_to_hear_here_on_profile_page(driver):
         return "No recent uploads"
@@ -101,7 +104,4 @@ def check_one_unchecked_link_wrapper():
 
 
 if __name__ == "__main__":
-    driver = make_chrome_driver()
-    url = "https://soundcloud.com/avn"
-    driver.get(url)
-    print(check_this_profile(driver))
+    pass

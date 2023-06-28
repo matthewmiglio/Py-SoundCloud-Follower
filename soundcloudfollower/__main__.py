@@ -10,9 +10,7 @@ from UTILS.file_handler import (
     get_raw_links_count,
 )
 from UTILS.plotting.plotter import create_data_graph
-from RAW_SOUNDCLOUD_URL_FINDER.raw_link_finder import (
-    check_for_invalid_likes_links,
-)
+
 
 SOUNDCLOUD_RAW_LINKS_UPPER_LIMIT = 1000
 
@@ -123,9 +121,7 @@ def main():
 
 
 def dummy_main():
-    # print(check_one_unchecked_link())
-    # check_for_dupes_in_likes_links()
-    check_for_invalid_likes_links()
+    pass
 
 
 if __name__ == "__main__":
