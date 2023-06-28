@@ -6,6 +6,7 @@ import time
 from UTILS.chrome_interaction import find_names, scroll_to_bottom
 
 from UTILS.file_handler import append_to_raw_links_file
+from UTILS.chrome_driver import make_chrome_driver
 
 
 LIKES_LINKS = [
@@ -185,6 +186,93 @@ LIKES_LINKS = [
 WEBPAGE_LOAD_TIME = 10
 
 
+FOLLOWERS_LINKS = [
+    "https://soundcloud.com/gunna/followers",
+    "https://soundcloud.com/toosii2x/followers",
+    "https://soundcloud.com/youngnudy/followers",
+    "https://soundcloud.com/metroboomin/followers",
+    "https://soundcloud.com/octobersveryown/followers",
+    "https://soundcloud.com/770rd/followers/followers",
+    "https://soundcloud.com/futureisnow/followers",
+    "https://soundcloud.com/ynwmelly/followers",
+    "https://soundcloud.com/21savage/followers",
+    "https://soundcloud.com/liluzivert/followers",
+    "https://soundcloud.com/szababy2/followers",
+    "https://soundcloud.com/steevlacy/followers",
+    "https://soundcloud.com/summerwalker/followers",
+    "https://soundcloud.com/torylanez/followers",
+    "https://soundcloud.com/kaliuchis/followers",
+    "https://soundcloud.com/brentfaiyaz/followers",
+    "https://soundcloud.com/theweeknd/followers",
+    "https://soundcloud.com/chris_brown/followers",
+    "https://soundcloud.com/brysontiller/followers",
+    "https://soundcloud.com/childish-gambino/followers",
+    "https://soundcloud.com/roywoodsofficial/followers",
+    "https://soundcloud.com/lil_peep/followers",
+    "https://soundcloud.com/mac-demarco-official/followers",
+    "https://soundcloud.com/greenday/followers",
+    "https://soundcloud.com/panicatthedisco/followers",
+    "https://soundcloud.com/rlgrime/followers",
+    "https://soundcloud.com/crankdatmusic/followers",
+    "https://soundcloud.com/gordoszn/followers",
+    "https://soundcloud.com/nickraymondg/followers",
+    "https://soundcloud.com/slanderofficial/followers",
+    "https://soundcloud.com/nghtmre/followers",
+    "https://soundcloud.com/lil-baby-4pf/followers",
+    "https://soundcloud.com/youngthugworld/followers",
+    "https://soundcloud.com/superduperkylemusic/followers",
+    "https://soundcloud.com/lil-skies/followers",
+    "https://soundcloud.com/dabilliondollarbaby/followers",
+    "https://soundcloud.com/nlechoppa/followers",
+    "https://soundcloud.com/jaydayoungan/followers",
+    "https://soundcloud.com/jackharlow/followers",
+    "https://soundcloud.com/postmalone/followers",
+    "https://soundcloud.com/pnbrock/followers",
+    "https://soundcloud.com/polo-g/followers",
+    "https://soundcloud.com/biggavelipro/followers",
+    "https://soundcloud.com/trippie-hippie-2/followers",
+    "https://soundcloud.com/liluzivert/followers",
+    "https://soundcloud.com/travisscott-2/followers",
+    "https://soundcloud.com/danielcaesar/followers",
+    "https://soundcloud.com/migosatl/followers",
+    "https://soundcloud.com/mustardofficial/followers",
+    "https://soundcloud.com/roddyricch/followers",
+    "https://soundcloud.com/rodwave/followers",
+    "https://soundcloud.com/raesremmurd/followers",
+    "https://soundcloud.com/uiceheidd/followers",
+    "https://soundcloud.com/comethazine/followers",
+    "https://soundcloud.com/lilmosey/followers",
+    "https://soundcloud.com/ygravy/followers",
+    "https://soundcloud.com/youngthugworld/followers",
+    "https://soundcloud.com/nba-youngboy/followers",
+    "https://soundcloud.com/a-boogie-wit-da-hoodie/followers",
+]
+
+
+def soundcloud_url_finder_main_loop_2(driver):
+    driver.get(random.choice(FOLLOWERS_LINKS))
+    wait = WebDriverWait(driver, 10)  # Maximum wait time of 10 seconds
+    wait.until(EC.presence_of_element_located((By.TAG_NAME, "body")))
+
+    # load page
+    loading_start_time = time.time()
+    time_waiting = 0
+    while time_waiting < WEBPAGE_LOAD_TIME:
+        scroll_to_bottom(driver)
+        time_waiting = time.time() - loading_start_time
+
+    # read names
+    names = find_names(driver)
+
+    # convert names to soundcloud link
+    links = convert_names_to_soundcloud_link(names)
+
+    # write names to file
+    writes = write_links_to_file(links)
+
+    return writes
+
+
 def soundcloud_url_finder_main_loop(driver):
     # get to random song's likes page
     webpage_loading_start_time = time.time()
@@ -246,11 +334,11 @@ def convert_name_to_soundcloud_link(name):
 
 
 # LIKES_LINKS debug methods
-def check_for_dupes_in_likes_links():
+def check_for_dupes_in_likes_links(list):
     seen = set()
     duplicates = set()
 
-    for link in LIKES_LINKS:
+    for link in list:
         if link in seen:
             duplicates.add(link)
         else:
@@ -260,10 +348,10 @@ def check_for_dupes_in_likes_links():
         print(duplicate)
 
 
-def check_for_invalid_likes_links():
+def check_for_invalid_likes_links(list):
     bad_urls = []
 
-    for url in LIKES_LINKS:
+    for url in list:
         url_parts = url.split("/")
 
         if len(url_parts) != 6:
@@ -288,3 +376,23 @@ def check_for_invalid_likes_links():
 
     print(f"There are {len(bad_urls)} invalids")
     print("-------------------------------------------")
+
+
+def check_for_invalid_follower_links(list):
+    bad_links = []
+    for item in list:
+        if "https://soundcloud.com/" not in item:
+            bad_links.append(item)
+            continue
+
+        elif "followers" not in item:
+            bad_links.append(item)
+            continue
+
+        elif len(item.split("/")) != 5:
+            bad_links.append(item)
+            continue
+
+    for item in bad_links:
+        print(item)
+    print(f"There are {len(bad_links)} bad links")
