@@ -17,6 +17,7 @@ from RAW_SOUNDCLOUD_URL_FINDER.raw_link_finder import (
     check_for_dupes_in_likes_links,
 )
 from RAW_SOUNDCLOUD_URL_FINDER.raw_link_finder import check_for_invalid_follower_links
+from UTILS.file_handler import get_random_good_url_line
 
 
 SOUNDCLOUD_RAW_LINKS_UPPER_LIMIT = 1000
@@ -128,10 +129,15 @@ def main():
 
 
 def dummy_main():
-    pass
+    driver = make_chrome_driver()
+
+    while 1:
+        url = get_random_good_url_line()
+        driver.get(url)
+        input("input")
 
 
 if __name__ == "__main__":
-    main()
+    # main()
 
-    # dummy_main()
+    dummy_main()

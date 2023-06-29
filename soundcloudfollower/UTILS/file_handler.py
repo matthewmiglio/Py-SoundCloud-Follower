@@ -200,6 +200,18 @@ def get_good_links_count():
         return 0
 
 
+def get_random_good_url_line():
+    folder_path = os.path.join(os.getenv("APPDATA"), "py-soundcloud-follower")  # type: ignore
+    file_path = os.path.join(folder_path, "good_links.txt")
+
+    with open(file_path, 'r') as file:
+        lines = file.readlines()
+        random_line = random.choice(lines)
+        return random_line.strip()  # Remove any leading/trailing whitespace
+
+
+
+
 def return_and_delete_last_line_in_good_urls():
     folder_path = os.path.join(os.getenv("APPDATA"), "py-soundcloud-follower")  # type: ignore
     file_path = os.path.join(folder_path, "good_links.txt")
