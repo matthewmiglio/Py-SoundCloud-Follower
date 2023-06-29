@@ -183,7 +183,7 @@ LIKES_LINKS = [
     "https://soundcloud.com/gunna/go-crazy/likes",
     "https://soundcloud.com/gunna/p-angels/likes",
 ]
-WEBPAGE_LOAD_TIME = 10
+WEBPAGE_LOAD_TIME = 20
 
 
 FOLLOWERS_LINKS = [
