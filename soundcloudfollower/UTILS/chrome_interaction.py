@@ -153,16 +153,16 @@ def wait_for_this_profile_page_to_load(driver):
     while not check_for_old_upload_text(driver):
         time_taken = time.time() - start_time
         if time_taken > TIMEOUT:
-            print(
-                f"Waited {str(time.time() - start_time)[:4]} seconds for profile page to load"
-            )
+            # print(
+            #     f"Waited {str(time.time() - start_time)[:4]} seconds for profile page to load"
+            # )
             return "fail"
 
     time.sleep(1)
 
-    print(
-        f"Waited {str(time.time() - start_time)[:4]} seconds for profile page to load"
-    )
+    # print(
+    #     f"Waited {str(time.time() - start_time)[:4]} seconds for profile page to load"
+    # )
 
 
 def check_for_old_upload_text(driver):

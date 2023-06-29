@@ -8,6 +8,7 @@ from RAW_SOUNDCLOUD_URL_FINDER.main_url_finder import (
 from USER_FOLLOWER.main_follower import follow_main
 from UTILS.file_handler import file_setup, get_good_links_count, get_raw_links_count
 from UTILS.plotting.plotter import create_data_graph
+from UTILS.file_cleaning import clean_selenium_files
 
 SOUNDCLOUD_RAW_LINKS_UPPER_LIMIT = 1000
 
@@ -112,6 +113,7 @@ def gui():
 
 
 def main():
+    clean_selenium_files()
     file_setup()
     create_data_graph()
     gui()
