@@ -18,6 +18,54 @@ FOLLOWER_UPPER_LIMIT = 400
 FOLLOWER_LOWER_LIMIT = 15
 
 
+def check_one_unchecked_link_2(driver):
+    # open to 1 link from the file
+    link = remove_and_return_random_raw_link()
+    try:
+        driver.get(link)
+    except:
+        print(f"Failure getting to {link}")
+        return "url fail"
+
+    # Wait for the webpage to load
+    webpage_wait_start_time = time.time()
+    wait = WebDriverWait(driver, 10)  # Maximum wait time of 10 seconds
+    wait.until(EC.presence_of_element_located((By.TAG_NAME, "body")))
+    time.sleep(4)
+    print(
+        f"Waited {str(time.time() - webpage_wait_start_time)[:4]} seconds for webpage"
+    )
+
+    profile_check_return = check_this_profile(driver)
+
+    if profile_check_return != "good":
+        return profile_check_return
+    else:
+        # write the link to the good links file
+        append_method_return = add_to_good_links(link)
+        if append_method_return == "Error writing to file":
+            return "Write fail"
+
+    return "success"
+
+
+def check_one_unchecked_link_2_wrapper(driver):
+    start_time = time.time()
+
+    out = check_one_unchecked_link_2(driver)
+
+    time_taken = str(time.time() - start_time)[:4]
+
+    if out == "success":
+        print(f"Good profile! {time_taken}")
+    elif out == "Write fail":
+        print(f"Failed to write this profile url to the good links file {time_taken}")
+    elif out == "url fail":
+        print(f"Failed to get to this url {time_taken}")
+    else:
+        print(f"Bad profile for reason [{out}] {time_taken}")
+
+
 def check_one_unchecked_link():
     driver = make_chrome_driver()
 
