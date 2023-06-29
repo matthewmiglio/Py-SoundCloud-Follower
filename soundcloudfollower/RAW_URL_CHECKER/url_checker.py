@@ -1,5 +1,5 @@
-from selenium.webdriver.support.ui import WebDriverWait
 import time
+from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from UTILS.chrome_interaction import (
@@ -49,7 +49,7 @@ def check_one_unchecked_link():
 
 def check_this_profile(driver):
     wait_for_this_profile_page_to_load(driver)
-    
+
     # if 'nothing to hear here' is on the page, return
     if check_for_nothing_to_hear_here_on_profile_page(driver):
         return "No recent uploads"
