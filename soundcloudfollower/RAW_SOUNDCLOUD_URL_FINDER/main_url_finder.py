@@ -19,8 +19,8 @@ def url_finder_state_tree(state, soundcloud_raw_links_upper_limit, worker_count)
         )
 
     elif state == "get_good_links":
-        # state = check_raw_links_state(worker_count)
-        state = check_raw_links_state_2()
+        state = check_raw_links_state(worker_count)
+        # state = check_raw_links_state_2()
 
     return state
 
